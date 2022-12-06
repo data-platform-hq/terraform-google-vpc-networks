@@ -1,31 +1,32 @@
-variable "project_id" {
-  description = "The ID of the project to which the resource belongs"
-  type        = string
-}
-
 variable "product_base_name" {
-  description = "Cloud resources base name (used to create services)"
+  description = "Cloud resources base name (used to create services)."
   type        = string
 }
 
 variable "env" {
   description = "Variable to mark the environment of the resource (used to create services)."
   type        = string
-  default     = "dev"
 }
 
 variable "region" {
   description = "The location or cloud resources region for the environment"
   type        = string
-  default     = "us-west1"
+}
+
+variable "create_subnet" {
+  description = "When set to true, the network will create a subnet for each region automatically. When set to false, the user can explicitly connect subnetwork resources"
+  type        = bool
+  default     = false
+}
+
+variable "private_access" {
+  description = "When enabled, VMs in this subnetwork without external IP addresses can access Google APIs and services by using Private Google Access."
+  type        = bool
+  default     = false
 }
 
 variable "services_networks" {
   description = "Service names and CIDR ranges for which VPCs and subnets should be created"
-  type        = map(any)
-  default = {
-    composer = "172.20.1.0/24"
-    dataflow = "172.20.2.0/24"
-    dataproc = "172.20.3.0/24"
-  }
+  type        = map(string)
+  default     = {}
 }

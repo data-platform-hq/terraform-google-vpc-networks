@@ -26,22 +26,20 @@ No modules.
 | [google_compute_subnetwork.main_subnet](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_subnetwork) | resource |
 
 ## Inputs
-| Name                                                                                      | Description                                                                | Type       | Default                                                                                                        | Required |
-| ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------- | :------: |
-| <a name="input_region"></a> [region](#input\_region)                                      | The location or cloud resources region for the environment                 | `string`   | <pre><br>us-west1</pre>                                                                                        |   yes    |
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id)                        | The ID of the project to which the resource belongs                        | `string`   | n/a                                                                                                            |   yes    |
-| <a name="input_product_base_name"></a> [product\_base\_name](#input\_product\_base\_name) | Cloud resources base name (used to create services)                        | `string`   | n/a                                                                                                            |   yes    |
-| <a name="input_env"></a> [env](#input\_env)                                               | Variable to mark the environment of the resource (used to create services) | `string`   | <pre><br>dev</pre>                                                                                             |   yes    |
-| <a name="input_services_networks"></a> [services\_networks](#input\_services\_networks)   | Service names and CIDR ranges for which VPCs and subnets should be created | `map(any)` | <pre>{<br> composer = "172.20.1.0/24"<br> dataflow = "172.20.2.0/24"<br> dataproc = "172.20.3.0/24"<br>}</pre> |   yes    |
+| Name                                                                                      | Description                                                                                                                                   | Type       | Default | Required |
+| ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------- | :------: |
+| <a name="input_product_base_name"></a> [product\_base\_name](#input\_product\_base\_name) | Cloud resources base name (used to create services).                                                                                          | `string`   | n/a     |   yes    |
+| <a name="input_env"></a> [env](#input\_env)                                               | Variable to mark the environment of the resource (used to create services).                                                                   | `string`   | n/a     |   yes    |
+| <a name="input_region"></a> [region](#input\_region)                                      | The location or cloud resources region for the environment.                                                                                   | `string`   | n/a     |   yes    |
+| <a name="input_create_subnet"></a> [create\_subnet](#input\_create\_subnet)               | When true the network will create a subnet for each region automatically. When set to false user can explicitly connect subnetwork resources. | `bool`     | false   |    no    |
+| <a name="input_private_access"></a> [private\_access](#input\_private\_access)            | When enabled, VMs in this subnetwork without external IP addresses can access Google APIs and services by using Private Google Access.        | `bool`     | false   |    no    |
+| <a name="input_services_networks"></a> [services\_networks](#input\_services\_networks)   | Service names and CIDR ranges for which VPCs and subnets should be created                                                                    | `map(any)` | {}      |    no    |
 
 ## Outputs
-| Name                                                                                | Description                               |
-| ----------------------------------------------------------------------------------- | ----------------------------------------- |
-| <a name="output_vpc"></a> [vpc](#output\_vpc)                                       | An identifier for the VPC                 |
-| <a name="output_composer_subnet"></a> [composer\_subnet](#output\_composer\_subnet) | An identifier for the composer subnetwork |
-| <a name="output_dataflow_subnet"></a> [dataflow\_subnet](#output\_dataflow\_subnet) | An identifier for the dataflow subnetwork |
-| <a name="output_dataproc_subnet"></a> [dataproc\_subnet](#output\_dataproc\_subnet) | An identifier for the dataproc subnetwork |
-
+| Name                                                   | Description                            |
+| ------------------------------------------------------ | -------------------------------------- |
+| <a name="output_vpc"></a> [vpc](#output\_vpc)          | An identifier for the VPC.             |
+| <a name="output_subnet"></a> [subnet](#output\_subnet) | An identifier for the vpc subnetworks. |
 <!-- END_TF_DOCS -->
 
 ## License
