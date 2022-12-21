@@ -18,25 +18,5 @@ resource "google_compute_subnetwork" "main_subnet" {
     metadata             = "INCLUDE_ALL_METADATA"
   }
 
-  # log_config {
-  #   aggregation_interval = lookup(var.log_config, "aggregation_interval", "")
-  #   flow_sampling        = lookup(var.log_config, "flow_sampling", null)
-  #   metadata             = lookup(var.log_config, "metadata", "")
-  #   metadata_fields      = lookup(var.log_config, "metadata_fields", [])
-  #   filter_expr          = lookup(var.log_config, "filter_expr", "")
-  # }
-
-  # dynamic "log_config" {
-  #   for_each = var.log_config
-
-  #   content {
-  #     aggregation_interval = lookup(log_config, "aggregation_interval", "")
-  #     flow_sampling        = lookup(log_config, "flow_sampling", null)
-  #     metadata             = lookup(log_config, "metadata", "")
-  #     metadata_fields      = lookup(log_config, "metadata_fields", [])
-  #     filter_expr          = lookup(log_config, "filter_expr", "")
-  #   }
-  # }
-
   depends_on = [google_compute_network.main_vpc_network]
 }

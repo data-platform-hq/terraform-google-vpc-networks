@@ -9,12 +9,12 @@ variable "env" {
 }
 
 variable "region" {
-  description = "The location or cloud resources region for the environment"
+  description = "The location or cloud resources region for the environment."
   type        = string
 }
 
 variable "create_subnet" {
-  description = "When set to true, the network will create a subnet for each region automatically. When set to false, the user can explicitly connect subnetwork resources"
+  description = "When true the network will create a subnet for each region automatically. When set to false user can explicitly connect subnetwork resources."
   type        = bool
   default     = false
 }
@@ -26,7 +26,7 @@ variable "private_access" {
 }
 
 variable "services_networks" {
-  description = "Service names and CIDR ranges for which VPCs and subnets should be created"
+  description = "Service names and CIDR ranges for which VPCs and subnets should be created."
   type        = map(string)
   default     = {}
 }
