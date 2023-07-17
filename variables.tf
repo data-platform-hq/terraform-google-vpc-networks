@@ -14,17 +14,6 @@ variable "region" {
   type        = string
 }
 
-# variable "create_subnet" {
-#   description = "When true the network will create a subnet for each region automatically. When set to false user can explicitly connect subnetwork resources."
-#   type        = bool
-#   default     = false
-# }
-
-# variable "private_access" {
-#   description = "When enabled, VMs in this subnetwork without external IP addresses can access Google APIs and services by using Private Google Access."
-#   type        = bool
-#   default     = false
-# }
 variable "prefix" {
   description = "Cloud resources base name (used to create services)."
   type        = string
@@ -76,7 +65,7 @@ variable "vpc_config" {
         ]
         private_ip_google_access = true
         log_config = {
-          aggregation_interval = "INTERVAL_5_MIN"
+          aggregation_interval = "INTERVAL_30_MIN"
           flow_sampling        = 0.5
           metadata             = "INCLUDE_ALL_METADATA"
         }

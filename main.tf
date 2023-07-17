@@ -1,6 +1,7 @@
 locals {
   prefix = length(var.prefix) == 0 ? "" : "${var.prefix}-"
   suffix = length(var.suffix) == 0 ? "" : "-${var.suffix}"
+  env    = length(var.env) == 0 ? "" : "${var.env}-"
 
   vpc_subnets = flatten([
     for subnet in coalesce(var.vpc_config.subnets, []) : {
@@ -13,10 +14,10 @@ locals {
     }
   ])
 
-  vpc_network_name = replace("${var.prefix}${var.env}${local.suffix}-${var.vpc_config.name}", "_", "-")
+  vpc_network_name = replace("${local.prefix}${local.env}${local.suffix}${var.vpc_config.name}", "_", "-")
 
   vpc_subnet_names = {
-    for subnet in var.vpc_config.subnets : subnet.name => replace("${var.prefix}${var.env}${local.suffix}-${subnet.name}", "_", "-")
+    for subnet in var.vpc_config.subnets : subnet.name => replace("${local.prefix}${local.env}${local.suffix}${subnet.name}", "_", "-")
   }
 }
 
@@ -51,28 +52,3 @@ resource "google_compute_subnetwork" "subnet" {
     }
   }
 }
-
-# resource "google_compute_subnetwork" "subnet" {
-#   for_each                 = { for s in var.vpc_config.subnets : s.name => s }
-#   name                     = local.vpc_subnet_names[each.key]
-#   project                  = var.project_id
-#   region                   = each.value.region == null ? var.region : each.value.region
-#   network                  = google_compute_network.vpc.name
-#   ip_cidr_range            = each.value.subnet_cidr
-#   private_ip_google_access = each.value.private_ip_google_access != null ? each.value.private_ip_google_access : false
-#   #   log_config               = each.value.log_config
-
-#   dynamic "secondary_ip_range" {
-#     for_each = each.value.secondary_ranges != null ? each.value.secondary_ranges : []
-#     content {
-#       range_name    = secondary_ip_range.value.range_name
-#       ip_cidr_range = secondary_ip_range.value.range_cidr
-#     }
-#   }
-
-#   log_config {
-#     aggregation_interval = each.value.log_config != null ? each.value.log_config.aggregation_interval : null
-#     flow_sampling        = each.value.log_config != null ? each.value.log_config.flow_sampling : null
-#     metadata             = each.value.log_config != null ? each.value.log_config.metadata : null
-#   }
-# }
