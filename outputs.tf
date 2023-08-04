@@ -1,9 +1,20 @@
-output "vpc" {
-  value       = google_compute_network.main_vpc_network.id
-  description = "An identifier for the VPC"
+output "vpc_name" {
+  description = "Name of the VPC network"
+  value       = google_compute_network.vpc.name
 }
 
-output "subnet" {
-  value       = { for k, v in var.services_networks : k => google_compute_subnetwork.main_subnet[k].id }
-  description = "An identifier for the vpc subnetworks"
+output "subnet_id" {
+  description = "IDs of the created subnets per VPC"
+  value = {
+    for subnet in var.vpc_config.subnets : subnet.name => google_compute_subnetwork.subnet[subnet.name].id
+    if var.vpc_config.subnets != null
+  }
+}
+
+output "subnet_name" {
+  description = "IDs of the created subnets per VPC"
+  value = {
+    for subnet in var.vpc_config.subnets : subnet.name => google_compute_subnetwork.subnet[subnet.name].name
+    if var.vpc_config.subnets != null
+  }
 }
