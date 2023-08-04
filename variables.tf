@@ -9,11 +9,6 @@ variable "env" {
   type        = string
 }
 
-variable "region" {
-  description = "The location or cloud resources region for the environment."
-  type        = string
-}
-
 variable "prefix" {
   description = "Cloud resources base name (used to create services)."
   type        = string
