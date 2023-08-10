@@ -9,6 +9,7 @@ output "subnet_id" {
     for subnet in var.vpc_config.subnets : subnet.name => google_compute_subnetwork.subnet[subnet.name].id
     if var.vpc_config.subnets != null
   }
+}
 
 output "subnet_name" {
   description = "Names of the created subnets per VPC"
