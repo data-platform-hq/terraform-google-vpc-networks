@@ -1,22 +1,53 @@
-resource "google_compute_network" "main_vpc_network" {
-  name                    = "${var.env}-${var.product_base_name}-vpc"
-  auto_create_subnetworks = var.create_subnet
+locals {
+  prefix = length(var.prefix) == 0 ? "" : "${var.prefix}-"
+  suffix = length(var.suffix) == 0 ? "" : "-${var.suffix}"
+  env    = length(var.env) == 0 ? "" : "${var.env}-"
+
+  vpc_subnets = flatten([
+    for subnet in coalesce(var.vpc_config.subnets, []) : {
+      region                   = subnet.region
+      subnet_name              = subnet.name
+      subnet_cidr              = subnet.subnet_cidr
+      secondary_ranges         = coalesce(subnet.secondary_ranges, [])
+      private_ip_google_access = subnet.private_ip_google_access
+      log_config               = subnet.log_config
+    }
+  ])
+
+  vpc_network_name = replace("${local.prefix}${local.env}${local.suffix}${var.vpc_config.name}", "_", "-")
+
+  vpc_subnet_names = {
+    for subnet in var.vpc_config.subnets : subnet.name => replace("${local.prefix}${local.env}${local.suffix}${subnet.name}", "_", "-")
+  }
+}
+resource "google_compute_network" "vpc" {
+  name                    = local.vpc_network_name
+  project                 = var.project_id
+  auto_create_subnetworks = false
 }
 
-resource "google_compute_subnetwork" "main_subnet" {
-  for_each = var.services_networks
+resource "google_compute_subnetwork" "subnet" {
+  for_each      = { for s in local.vpc_subnets : s.subnet_name => s }
+  name          = local.vpc_subnet_names[each.key]
+  project       = var.project_id
+  region        = each.value.region
+  network       = google_compute_network.vpc.name
+  ip_cidr_range = each.value.subnet_cidr
 
-  name          = "${each.key}-${var.env}-${var.product_base_name}-subnet"
-  ip_cidr_range = each.value
-
-  region                   = var.region
-  private_ip_google_access = var.private_access
-  network                  = google_compute_network.main_vpc_network.id
-  log_config {
-    aggregation_interval = "INTERVAL_10_MIN"
-    flow_sampling        = 0.5
-    metadata             = "INCLUDE_ALL_METADATA"
+  dynamic "secondary_ip_range" {
+    for_each = each.value.secondary_ranges
+    content {
+      range_name    = secondary_ip_range.value.range_name
+      ip_cidr_range = secondary_ip_range.value.range_cidr
+    }
   }
-
-  depends_on = [google_compute_network.main_vpc_network]
+  private_ip_google_access = each.value.private_ip_google_access
+  dynamic "log_config" {
+    for_each = [each.value.log_config]
+    content {
+      aggregation_interval = log_config.value.aggregation_interval
+      flow_sampling        = log_config.value.flow_sampling
+      metadata             = log_config.value.metadata
+    }
+  }
 }
