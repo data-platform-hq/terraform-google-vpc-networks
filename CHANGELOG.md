@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/data-platform-hq/terraform-google-vpc-networks/compare/v1.0.0...v1.1.0) (2023-08-21)
+
+
+### Bug Fixes
+
+* updated default values ([54d52eb](https://github.com/data-platform-hq/terraform-google-vpc-networks/commit/54d52eb7c35619120ebff10dd686225dc64a7afb))
+
+
+### Features
+
+* updated added ranges for subnets ([5fd06d3](https://github.com/data-platform-hq/terraform-google-vpc-networks/commit/5fd06d3e5ae50af5e81ed20aa06995d478556206))
+
 # 1.0.0 (2023-01-19)
 
 
