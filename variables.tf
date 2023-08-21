@@ -1,7 +1,6 @@
 variable "project_id" {
   description = "ID of the project in which the resources should be created (for Datahub (alias) GCP project)."
   type        = string
-  default     = ""
 }
 
 variable "env" {
