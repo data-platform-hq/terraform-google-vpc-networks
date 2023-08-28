@@ -41,7 +41,7 @@ variable "vpc_config" {
         aggregation_interval = "INTERVAL_30_SEC"
         flow_sampling        = 0.5
         metadata             = "INCLUDE_ALL_METADATA"
-      })
+        })
     })))
   })
   default = {
