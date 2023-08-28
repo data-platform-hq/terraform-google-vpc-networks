@@ -32,12 +32,16 @@ variable "vpc_config" {
         range_name = string
         range_cidr = string
       })))
-      private_ip_google_access = optional(bool)
+      private_ip_google_access = optional(bool, true)
       log_config = optional(object({
         aggregation_interval = optional(string)
         flow_sampling        = optional(number)
         metadata             = optional(string)
-      }))
+        }), {
+        aggregation_interval = "INTERVAL_30_SEC"
+        flow_sampling        = 0.5
+        metadata             = "INCLUDE_ALL_METADATA"
+      })
     })))
   })
   default = {
