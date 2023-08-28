@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/data-platform-hq/terraform-google-vpc-networks/compare/v1.1.0...v1.1.1) (2023-08-28)
+
+
+### Bug Fixes
+
+* fmt ([eb3ca10](https://github.com/data-platform-hq/terraform-google-vpc-networks/commit/eb3ca10bbeda7b24cc773f445b29dbd29c2696f4))
+* fmt ([ed4bd48](https://github.com/data-platform-hq/terraform-google-vpc-networks/commit/ed4bd483134abed554e09218f4e36a503f82132e))
+* updated vpc default values ([de241c1](https://github.com/data-platform-hq/terraform-google-vpc-networks/commit/de241c1573298fc17fb500e2726e4f93481c171d))
+
 # [1.1.0](https://github.com/data-platform-hq/terraform-google-vpc-networks/compare/v1.0.0...v1.1.0) (2023-08-21)
 
 
