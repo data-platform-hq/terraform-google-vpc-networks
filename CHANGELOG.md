@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/data-platform-hq/terraform-google-vpc-networks/compare/v1.1.1...v1.2.0) (2026-09-02)
+
+
+### Features
+
+* change google provider to v7.45.0 ([e4ac579](https://github.com/data-platform-hq/terraform-google-vpc-networks/commit/e4ac57975b938ae2da4eb4c1f168a7dc841f7ed9))
+
 ## [1.1.1](https://github.com/data-platform-hq/terraform-google-vpc-networks/compare/v1.1.0...v1.1.1) (2023-08-28)
 
 
