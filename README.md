@@ -10,14 +10,14 @@ Terraform module for creating Google Virtual Private Cloud resources
 
 | Name                                                                      | Version   |
 |---------------------------------------------------------------------------|-----------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0  |
-| <a name="requirement_google"></a> [google](#requirement\_google)          | >= 4.69.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0  |
+| <a name="requirement_google"></a> [google](#requirement\_google)          | >= 7.45.0 |
 
 ## Providers
 
 | Name                                                       | Version |
 |------------------------------------------------------------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 4.69.1  |
+| <a name="provider_google"></a> [google](#provider\_google) | 7.45.0  |
 
 ## Modules
 
